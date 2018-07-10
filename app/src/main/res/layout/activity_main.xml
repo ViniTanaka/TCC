@@ -29,7 +29,6 @@
                 android:layout_width="196dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:contentDescription="@endlist"
                 app:srcCompat="@android:drawable/btn_star_big_on" />
 
             <ImageButton
@@ -38,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:contentDescription="]"
-                app:srcCompat="@android:drawable/ic_input_add" />
+                app:srcCompat="@android:drawable/ic_input_add"/>
         </android.support.design.widget.BottomNavigationView>
     </LinearLayout>
 
