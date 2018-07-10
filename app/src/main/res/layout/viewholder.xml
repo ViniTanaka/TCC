@@ -11,13 +11,24 @@
         android:layout_height="55dp"
         tools:text="line1" />
 
+    <ImageView
+        android:id="@+id/holderImg"
+        android:layout_width="62dp"
+        android:layout_height="55dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="@drawable/ic_launcher_foreground"
+        tools:ignore="VectorDrawableCompat"
+        android:layout_alignParentLeft="true" />
+
     <ImageButton
         android:id="@+id/delete"
         android:layout_width="62dp"
         android:layout_height="55dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:contentDescription="@delete"
+        android:layout_alignParentRight="true"
+        android:contentDescription="delete"
         app:srcCompat="@android:drawable/ic_menu_delete" />
 
     <ImageButton
@@ -26,7 +37,9 @@
         android:layout_height="55dp"
         android:layout_alignParentTop="true"
         android:layout_toStartOf="@+id/delete"
-        android:contentDescription="@update"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:layout_toLeftOf="@+id/delete"
+        android:contentDescription="update"
+        app:srcCompat="@android:drawable/ic_input_add"/>
+
 
 </RelativeLayout>

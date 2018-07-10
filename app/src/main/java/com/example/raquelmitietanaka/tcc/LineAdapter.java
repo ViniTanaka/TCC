@@ -1,29 +1,42 @@
 package com.example.raquelmitietanaka.tcc;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class LineAdapter extends RecyclerView.Adapter<LineHolder>{
+public class LineAdapter extends RecyclerView.Adapter<LineAdapter.LineHolder>{
+
     private final List<Compras> mCompras;
-    public LineAdapter(ArrayList produto){
+    Context cntx;
+
+    public LineAdapter(Context cntx, ArrayList<Compras> produto){
+        this.cntx = cntx;
         mCompras = produto;
     }
 
     @Override
     public LineHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        return new LineHolder(LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.viewholder, parent, false ));
+        //LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        //View view = layoutInflater.inflate(R.layout.viewholder, parent, false);
+        //LineHolder lineholder = new LineHolder(view);
+        //return lineholder;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
+        return new LineHolder(itemView);
     }
 
-    @Override
     public void onBindViewHolder(LineHolder holder, final int position){
         holder.title.setText(String.format(Locale.getDefault(), "%s, %d - %s",
+                mCompras.get(position).getImgBitmap(),
                 mCompras.get(position).getName(),
                 mCompras.get(position).getValor(),
                 mCompras.get(position).getQtd()
@@ -58,6 +71,26 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder>{
         mCompras.remove(position);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, mCompras.size());
+    }
+
+    //Classe HOLDER
+    protected class LineHolder extends RecyclerView.ViewHolder {
+
+        public TextView title;
+        public Bitmap imgProduto;
+        public ImageButton moreButton;
+        public ImageButton deleteButton;
+
+        public LineHolder(final View itemView){
+            super(itemView);
+            title = itemView.findViewById(R.id.title);
+            moreButton = itemView.findViewById(R.id.add);
+            deleteButton = itemView.findViewById(R.id.delete);
+        }
+
+        public void setImgProduto(Bitmap imgProduto) {
+            this.imgProduto = imgProduto;
+        }
     }
 
 }
