@@ -2,6 +2,7 @@ package com.example.raquelmitietanaka.tcc;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.LayoutInflater;
@@ -9,47 +10,46 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
-public class LineAdapter extends RecyclerView.Adapter<LineAdapter.LineHolder>{
+public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
 
-    private final List<Compras> mCompras;
-    Context cntx;
+    ArrayList<Compras> listaProd = new ArrayList<Compras>();
+    Compras compras = new Compras("0",0,0);
+    Context context;
 
-    public LineAdapter(Context cntx, ArrayList<Compras> produto){
-        this.cntx = cntx;
-        mCompras = produto;
+    public LineAdapter(ArrayList<Compras> produto,Context context){
+        listaProd = produto;
+        this.context = context;
     }
 
     @Override
     public LineHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        //LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        //View view = layoutInflater.inflate(R.layout.viewholder, parent, false);
-        //LineHolder lineholder = new LineHolder(view);
-        //return lineholder;
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder, parent, false);
-        return new LineHolder(itemView);
+        View view = LayoutInflater.from(context)
+                .inflate(R.layout.viewholder, parent, false);
+        LineHolder holder = new LineHolder(view);
+        return holder;
+        //return new LineHolder(LayoutInflater.from(parent.getContext())
+         //       .inflate(R.layout.viewholder, parent, false));
+
     }
 
-    public void onBindViewHolder(LineHolder holder, final int position){
-        holder.title.setText(String.format(Locale.getDefault(), "%s, %d - %s",
-                mCompras.get(position).getImgBitmap(),
-                mCompras.get(position).getName(),
-                mCompras.get(position).getValor(),
-                mCompras.get(position).getQtd()
+    public void onBindViewHolder(LineHolder viewHolder, final int position){
+        LineHolder holder = (LineHolder) viewHolder;
+        Compras compra = listaProd.get(position);
 
-        ));
+        holder.nome_produto.setText(compra.getName());
+        holder.valor_produto.setText(Double.toString(compra.getValor()));
+        holder.qtd_produto.setText(Integer.toString(compra.getQtd()));
 
         holder.moreButton.setOnClickListener(view -> updateItem(position));
+
         holder.deleteButton.setOnClickListener(view -> removerItem(position));
     }
 
     @Override
     public int getItemCount(){
-        return mCompras != null ? mCompras.size() : 0;
+        return listaProd.size();
     }
 
     public void updateList(Compras compras){
@@ -57,40 +57,21 @@ public class LineAdapter extends RecyclerView.Adapter<LineAdapter.LineHolder>{
     }
 
     public void insertItem(Compras compras){
-        mCompras.add(compras);
+        listaProd.add(compras);
         notifyItemInserted(getItemCount());
     }
 
     private void updateItem(int position){
-        Compras compras = mCompras.get(position);
-        compras.incrementQtd();
+        Compras compras = listaProd.get(position);
+        int qtd = compras.getQtd();
+        compras.setQtd(qtd+1);
         notifyItemChanged(position);
     }
 
     private void removerItem(int position){
-        mCompras.remove(position);
+        listaProd.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position, mCompras.size());
-    }
-
-    //Classe HOLDER
-    protected class LineHolder extends RecyclerView.ViewHolder {
-
-        public TextView title;
-        public Bitmap imgProduto;
-        public ImageButton moreButton;
-        public ImageButton deleteButton;
-
-        public LineHolder(final View itemView){
-            super(itemView);
-            title = itemView.findViewById(R.id.title);
-            moreButton = itemView.findViewById(R.id.add);
-            deleteButton = itemView.findViewById(R.id.delete);
-        }
-
-        public void setImgProduto(Bitmap imgProduto) {
-            this.imgProduto = imgProduto;
-        }
+        notifyItemRangeChanged(position, listaProd.size());
     }
 
 }
