@@ -7,38 +7,37 @@
     tools:context=".LinearLayoutActivity">
 
 
+    <android.support.design.widget.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/endlist"
+            android:layout_width="196dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
+
+        <ImageButton
+            android:id="@+id/add"
+            android:layout_width="186dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:contentDescription="]"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    </android.support.design.widget.BottomNavigationView>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="470dp"
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            tools:listitem="@layout/viewholder">
+            android:layout_height="470dp"
+            tools:listitem="@layout/viewholder" />
 
-        </android.support.v7.widget.RecyclerView>
-
-        <android.support.design.widget.BottomNavigationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@+id/endlist"
-                android:layout_width="196dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                app:srcCompat="@android:drawable/btn_star_big_on" />
-
-            <ImageButton
-                android:id="@+id/add"
-                android:layout_width="186dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:contentDescription="]"
-                app:srcCompat="@android:drawable/ic_input_add"/>
-        </android.support.design.widget.BottomNavigationView>
     </LinearLayout>
 
 </FrameLayout>
