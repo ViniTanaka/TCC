@@ -58,6 +58,7 @@ public class LinearLayoutActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 abrirCamera();
+
             }
         });
     }
@@ -81,16 +82,29 @@ public class LinearLayoutActivity extends AppCompatActivity {
         if( requestCode == FOTO_PRODUTO && resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");//guarda foto
+            ImageView imageView2 = (ImageView) findViewById(R.id.imageView2);
+            imageView2.setImageBitmap(imageBitmap);
 
             Compras produto = new Compras("Matheus", 5.50, 10);
             listaProd.add(produto);
             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-            recyclerView.setAdapter(new LineAdapter(listaProd, this));
+            LineAdapter adapter = new LineAdapter(listaProd, this);
+            recyclerView.setAdapter(adapter);
             RecyclerView.LayoutManager layout = new LinearLayoutManager(this,
                     LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layout);
+            //compara(imageBitmap);
         }//PRIMEIRO IF
+
     }//ActivityResult
+
+    private void compara(Bitmap imageBitmap) {
+        Comparacao cp = new Comparacao();
+        cp.setFoto(imageBitmap);
+        Intent it = new Intent(LinearLayoutActivity.this, Comparacao.class);
+        startActivity(it);
+
+    }
 
     private static Bitmap resizeImage(Context context, Bitmap bmpOriginal, float newWidth, float newHeight){
         Bitmap novoBmp = null;
